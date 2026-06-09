@@ -7,43 +7,45 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 body{background:#f4f5f7;color:#1a1a1a;font-size:14px}
-header{background:#1a1a2e;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-header h1{font-size:18px;font-weight:600}
+header{background:#1a1a2e;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+header h1{font-size:17px;font-weight:600}
 header span{font-size:12px;opacity:.7}
-.tabs{display:flex;background:#fff;border-bottom:1px solid #e0e0e0;padding:0 24px}
-.tab{padding:12px 20px;cursor:pointer;font-size:13px;border-bottom:3px solid transparent;color:#666}
+.tabs{display:flex;background:#fff;border-bottom:1px solid #e0e0e0;padding:0 16px;overflow-x:auto}
+.tab{padding:12px 18px;cursor:pointer;font-size:13px;border-bottom:3px solid transparent;color:#666;white-space:nowrap}
 .tab.active{color:#1a1a2e;border-bottom-color:#1a1a2e;font-weight:600}
-.page{display:none;padding:24px}
+.page{display:none;padding:16px}
 .page.active{display:block}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.metric{background:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.metric{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .metric-label{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#888;margin-bottom:6px}
 .metric-nums{display:flex;align-items:baseline;gap:6px}
-.metric-val{font-size:32px;font-weight:700}
-.metric-goal{font-size:14px;color:#aaa}
+.metric-val{font-size:30px;font-weight:700}
+.metric-goal{font-size:13px;color:#aaa}
 .metric-sub{font-size:11px;margin-top:4px}
-.bar{height:6px;border-radius:3px;background:#e8e8e8;margin-top:10px;overflow:hidden}
+.bar{height:6px;border-radius:3px;background:#e8e8e8;margin-top:8px;overflow:hidden}
 .bar-fill{height:100%;border-radius:3px;transition:width .4s}
 .green{color:#16a34a}.orange{color:#ea580c}.red{color:#dc2626}
 .bg-green{background:#16a34a}.bg-orange{background:#ea580c}.bg-red{background:#dc2626}
-.card{background:#fff;border-radius:10px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:16px}
-.card-title{font-size:13px;font-weight:600;margin-bottom:14px;color:#1a1a2e}
-.form-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.form-row input,.form-row select,.form-row textarea{padding:7px 10px;border:1px solid #ddd;border-radius:6px;font-size:13px;background:#fafafa;color:#1a1a1a}
-.form-row input[type=text]{flex:1;min-width:120px}
-.form-row select{min-width:110px}
-.btn{padding:7px 16px;border-radius:6px;border:none;cursor:pointer;font-size:13px;font-weight:500}
-.btn-primary{background:#1a1a2e;color:#fff}
+.card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:14px}
+.card-title{font-size:13px;font-weight:600;margin-bottom:12px;color:#1a1a2e}
+.form-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.form-row input,.form-row select{padding:7px 9px;border:1px solid #ddd;border-radius:6px;font-size:13px;background:#fafafa;color:#1a1a1a;min-width:0}
+.form-row input[type=text]{flex:1;min-width:100px}
+.btn{padding:7px 14px;border-radius:6px;border:1px solid #ddd;cursor:pointer;font-size:13px;font-weight:500;background:#fff;color:#333}
+.btn:hover{background:#f5f5f5}
+.btn-primary{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
 .btn-primary:hover{background:#2d2d4e}
-.btn-sm{padding:4px 10px;font-size:11px;border-radius:5px}
-.btn-green{background:#dcfce7;color:#15803d;border:1px solid #bbf7d0}
-.btn-red{background:#fee2e2;color:#dc2626;border:1px solid #fecaca}
-.btn-gray{background:#f1f5f9;color:#475569;border:1px solid #e2e8f0}
-table{width:100%;border-collapse:collapse;font-size:13px}
+.btn-sm{padding:4px 9px;font-size:11px;border-radius:5px}
+.btn-green{background:#dcfce7;color:#15803d;border-color:#bbf7d0}
+.btn-blue{background:#dbeafe;color:#1e40af;border-color:#bfdbfe}
+.btn-red{background:#fee2e2;color:#dc2626;border-color:#fecaca}
+.btn-gray{background:#f1f5f9;color:#475569;border-color:#e2e8f0}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
 th{text-align:left;padding:8px 10px;background:#f8f9fa;color:#666;font-size:11px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #eee}
-td{padding:9px 10px;border-bottom:1px solid #f3f3f3;vertical-align:middle}
+td{padding:8px 10px;border-bottom:1px solid #f3f3f3;vertical-align:middle}
 tr:hover td{background:#fafbff}
-.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:500}
+.badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap}
 .badge-phone{background:#dbeafe;color:#1e40af}
 .badge-email{background:#dcfce7;color:#15803d}
 .badge-inperson{background:#fef9c3;color:#854d0e}
@@ -51,15 +53,23 @@ tr:hover td{background:#fafbff}
 .badge-submitted{background:#dbeafe;color:#1e40af}
 .badge-won{background:#dcfce7;color:#15803d}
 .badge-lost{background:#fee2e2;color:#dc2626}
-.badge-customer{background:#ede9fe;color:#5b21b6}
-.badge-prospect{background:#e0f2fe;color:#0369a1}
-.empty{text-align:center;color:#aaa;padding:30px;font-size:13px}
-.week-note{font-size:11px;color:#999;margin-bottom:16px}
-.lead-filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-.filter-btn{padding:5px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:12px;cursor:pointer;color:#555}
+.badge-new{background:#f1f5f9;color:#475569}
+.badge-called{background:#dbeafe;color:#1e40af}
+.badge-emailed{background:#dcfce7;color:#15803d}
+.badge-visited{background:#fef9c3;color:#854d0e}
+.badge-notinterested{background:#fee2e2;color:#dc2626}
+.empty{text-align:center;color:#aaa;padding:24px;font-size:13px}
+.week-note{font-size:11px;color:#999;margin-bottom:12px}
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.filter-btn{padding:5px 11px;border-radius:20px;border:1px solid #ddd;background:#fff;font-size:12px;cursor:pointer;color:#555}
 .filter-btn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
-.section-head{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#999;padding:10px 0 6px;border-top:1px solid #eee;margin-top:10px}
-.section-head:first-child{border-top:none;margin-top:0;padding-top:0}
+.lead-note{font-size:11px;color:#999}
+.loading{text-align:center;padding:30px;color:#999;font-size:13px}
+@media(max-width:600px){
+  .metrics{grid-template-columns:1fr 1fr}
+  .metric-val{font-size:24px}
+  header h1{font-size:15px}
+}
 </style>
 </head>
 <body>
@@ -75,26 +85,25 @@ tr:hover td{background:#fafbff}
   <div class="tab" onclick="showTab('leads')">Lead List</div>
 </div>
 
-<!-- OVERVIEW -->
 <div id="page-overview" class="page active">
   <div class="metrics">
     <div class="metric">
       <div class="metric-label">New Contacts</div>
-      <div class="metric-nums"><span class="metric-val" id="ov-contacts">0</span><span class="metric-goal">/ 50</span></div>
-      <div class="metric-sub" id="ov-contacts-sub">50 remaining</div>
-      <div class="bar"><div class="bar-fill bg-red" id="ov-contacts-bar" style="width:0%"></div></div>
+      <div class="metric-nums"><span class="metric-val" id="ov-c">0</span><span class="metric-goal">/ 50</span></div>
+      <div class="bar"><div class="bar-fill bg-red" id="ov-c-bar" style="width:0%"></div></div>
+      <div class="metric-sub" id="ov-c-sub">50 remaining</div>
     </div>
     <div class="metric">
       <div class="metric-label">Job Visits</div>
-      <div class="metric-nums"><span class="metric-val" id="ov-visits">0</span><span class="metric-goal">/ 10</span></div>
-      <div class="metric-sub" id="ov-visits-sub">10 remaining</div>
-      <div class="bar"><div class="bar-fill bg-red" id="ov-visits-bar" style="width:0%"></div></div>
+      <div class="metric-nums"><span class="metric-val" id="ov-v">0</span><span class="metric-goal">/ 10</span></div>
+      <div class="bar"><div class="bar-fill bg-red" id="ov-v-bar" style="width:0%"></div></div>
+      <div class="metric-sub" id="ov-v-sub">10 remaining</div>
     </div>
     <div class="metric">
       <div class="metric-label">Bid Submissions</div>
-      <div class="metric-nums"><span class="metric-val" id="ov-bids">0</span><span class="metric-goal">/ 5</span></div>
-      <div class="metric-sub" id="ov-bids-sub">5 remaining</div>
-      <div class="bar"><div class="bar-fill bg-red" id="ov-bids-bar" style="width:0%"></div></div>
+      <div class="metric-nums"><span class="metric-val" id="ov-b">0</span><span class="metric-goal">/ 5</span></div>
+      <div class="bar"><div class="bar-fill bg-red" id="ov-b-bar" style="width:0%"></div></div>
+      <div class="metric-sub" id="ov-b-sub">5 remaining</div>
     </div>
   </div>
   <div class="card">
@@ -102,399 +111,290 @@ tr:hover td{background:#fafbff}
     <div id="ov-recent"><div class="empty">No activity logged yet this week</div></div>
   </div>
   <div class="card">
-    <div class="card-title">Week Notes — Follow-ups & Reminders</div>
-    <textarea id="week-notes" style="width:100%;min-height:80px;border:1px solid #eee;border-radius:6px;padding:10px;font-size:13px;resize:vertical" placeholder="e.g. Sent 37 bid follow-up emails 06/08..."></textarea>
-    <button class="btn btn-primary" style="margin-top:8px" onclick="saveNotes()">Save notes</button>
-    <div id="saved-notes-display" style="margin-top:10px;font-size:12px;color:#555;white-space:pre-wrap"></div>
+    <div class="card-title">Notes</div>
+    <textarea id="week-notes" style="width:100%;min-height:70px;border:1px solid #eee;border-radius:6px;padding:8px;font-size:13px;resize:vertical" placeholder="Reminders, follow-ups, week notes..."></textarea>
+    <button class="btn btn-primary" style="margin-top:8px" onclick="saveNotes()">Save</button>
+    <div id="notes-display" style="margin-top:10px;font-size:12px;color:#555;white-space:pre-wrap"></div>
   </div>
 </div>
 
-<!-- CONTACTS -->
 <div id="page-contacts" class="page">
   <div class="card">
     <div class="card-title">Log a Contact</div>
     <div class="form-row">
       <input type="text" id="c-name" placeholder="Contact name" />
       <input type="text" id="c-company" placeholder="Company" />
-      <input type="text" id="c-phone" placeholder="Phone / Email" />
-      <select id="c-method">
-        <option value="Phone">Phone</option>
-        <option value="Email">Email</option>
-        <option value="In-Person">In-Person</option>
-      </select>
+      <input type="text" id="c-phone" placeholder="Phone / Email" style="max-width:160px"/>
+      <select id="c-method"><option value="Phone">Phone</option><option value="Email">Email</option><option value="In-Person">In-Person</option></select>
     </div>
     <div class="form-row">
-      <input type="text" id="c-notes" placeholder="Notes (optional)" style="flex:1" />
-      <button class="btn btn-primary" onclick="addContact()">+ Log Contact</button>
+      <input type="text" id="c-notes" placeholder="Notes (optional)" />
+      <button class="btn btn-primary" onclick="addContact()">+ Add</button>
     </div>
   </div>
   <div class="card">
-    <div class="card-title" id="contacts-title">Contacts This Week (0 / 50)</div>
-    <div class="week-note">Week resets every Monday. Goal: 50 this week.</div>
-    <table>
-      <thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Method</th><th>Notes</th><th></th></tr></thead>
-      <tbody id="contacts-table"><tr><td colspan="6" class="empty">No contacts logged yet</td></tr></tbody>
-    </table>
+    <div class="card-title" id="c-title">Contacts This Week (0 / 50)</div>
+    <div class="week-note">Goal: 50 this week. Resets Monday.</div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Date</th><th>Name</th><th>Company</th><th>Method</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="c-table"><tr><td colspan="6" class="empty">No contacts logged yet</td></tr></tbody></table>
+    </div>
   </div>
 </div>
 
-<!-- VISITS -->
 <div id="page-visits" class="page">
   <div class="card">
     <div class="card-title">Log a Job Visit</div>
     <div class="form-row">
       <input type="text" id="v-customer" placeholder="Customer name" />
-      <input type="text" id="v-address" placeholder="Job address / city" />
-      <input type="text" id="v-notes" placeholder="Notes (optional)" style="flex:1" />
-      <button class="btn btn-primary" onclick="addVisit()">+ Log Visit</button>
+      <input type="text" id="v-address" placeholder="Address / city" />
+      <input type="text" id="v-notes" placeholder="Notes" />
+      <button class="btn btn-primary" onclick="addVisit()">+ Add</button>
     </div>
   </div>
   <div class="card">
-    <div class="card-title" id="visits-title">Job Visits This Week (0 / 10)</div>
+    <div class="card-title" id="v-title">Job Visits This Week (0 / 10)</div>
     <div class="week-note">Goal: 10 visits per week.</div>
-    <table>
-      <thead><tr><th>Date</th><th>Customer</th><th>Address</th><th>Notes</th><th></th></tr></thead>
-      <tbody id="visits-table"><tr><td colspan="5" class="empty">No visits logged yet</td></tr></tbody>
-    </table>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Date</th><th>Customer</th><th>Address</th><th>Notes</th><th></th></tr></thead>
+      <tbody id="v-table"><tr><td colspan="5" class="empty">No visits logged yet</td></tr></tbody></table>
+    </div>
   </div>
 </div>
 
-<!-- BIDS -->
 <div id="page-bids" class="page">
   <div class="card">
     <div class="card-title">Log a Bid</div>
     <div class="form-row">
       <input type="text" id="b-project" placeholder="Project name" />
       <input type="text" id="b-client" placeholder="Client / GC" />
-      <input type="text" id="b-due" placeholder="Due date" style="max-width:110px" />
-      <select id="b-status">
-        <option value="Pending">Pending</option>
-        <option value="Submitted">Submitted</option>
-        <option value="Won">Won</option>
-        <option value="Lost">Lost</option>
-      </select>
-      <button class="btn btn-primary" onclick="addBid()">+ Log Bid</button>
+      <input type="text" id="b-due" placeholder="Due date" style="max-width:100px"/>
+      <select id="b-status"><option>Pending</option><option>Submitted</option><option>Won</option><option>Lost</option></select>
+      <button class="btn btn-primary" onclick="addBid()">+ Add</button>
     </div>
   </div>
   <div class="card">
-    <div class="card-title" id="bids-title">Bids This Week (0 submitted / 5 goal)</div>
-    <div class="week-note">37 follow-up emails sent 06/08. Goal: 5 new submissions this week.</div>
-    <table>
-      <thead><tr><th>Date</th><th>Project</th><th>Client</th><th>Due</th><th>Status</th><th></th></tr></thead>
-      <tbody id="bids-table"><tr><td colspan="6" class="empty">No bids logged yet</td></tr></tbody>
-    </table>
+    <div class="card-title" id="b-title">Bids (0 submitted / 5 goal)</div>
+    <div class="week-note">37 follow-up emails sent 06/08/2026.</div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>Date</th><th>Project</th><th>Client</th><th>Due</th><th>Status</th><th></th></tr></thead>
+      <tbody id="b-table"><tr><td colspan="6" class="empty">No bids logged yet</td></tr></tbody></table>
+    </div>
   </div>
 </div>
 
-<!-- LEADS -->
 <div id="page-leads" class="page">
   <div class="card">
-    <div class="card-title">This Week's Lead List — 50 Contacts Needed</div>
-    <div class="week-note">Filtered to within ~30 miles of JCK plants: Royse City · Seagoville · Kemp · Mobile (Ferris area). Excludes your existing customers.</div>
-    <div class="lead-filters">
+    <div class="card-title">Lead List — Week of <span id="leads-week"></span></div>
+    <div class="week-note" id="leads-count">Loading leads...</div>
+    <div class="filter-bar" id="filter-bar">
       <button class="filter-btn active" onclick="filterLeads('all',this)">All</button>
-      <button class="filter-btn" onclick="filterLeads('Royse City',this)">Royse City plant</button>
-      <button class="filter-btn" onclick="filterLeads('Seagoville',this)">Seagoville plant</button>
-      <button class="filter-btn" onclick="filterLeads('Kemp',this)">Kemp plant</button>
-      <button class="filter-btn" onclick="filterLeads('Concrete Contractor',this)">Concrete contractors</button>
-      <button class="filter-btn" onclick="filterLeads('General Contractor',this)">General contractors</button>
-      <button class="filter-btn" onclick="filterLeads('Home Builder',this)">Home builders</button>
+      <button class="filter-btn" onclick="filterLeads('Royse City',this)">Royse City</button>
+      <button class="filter-btn" onclick="filterLeads('Seagoville',this)">Seagoville</button>
+      <button class="filter-btn" onclick="filterLeads('Kemp',this)">Kemp</button>
+      <button class="filter-btn" onclick="filterLeads('Concrete Contractor',this)">Concrete</button>
+      <button class="filter-btn" onclick="filterLeads('General Contractor',this)">GC</button>
+      <button class="filter-btn" onclick="filterLeads('Home Builder',this)">Home Builders</button>
+      <button class="filter-btn" onclick="filterLeads('new',this)">Not contacted</button>
     </div>
-    <table>
-      <thead><tr><th>Company</th><th>Type</th><th>Area / Plant</th><th>Phone</th><th>Status</th><th></th></tr></thead>
-      <tbody id="leads-table"></tbody>
-    </table>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Company / Contact</th><th>Type</th><th>Area</th><th>Phone</th><th>Email</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="leads-table"><tr><td colspan="7" class="loading">Loading leads from leads.json...</td></tr></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script>
 const GOALS={contacts:50,visits:10,bids:5};
 let state={contacts:[],visits:[],bids:[],notes:'',week:getMonday()};
+let allLeads=[], filteredLeads=[], leadStatuses={};
 
 function getMonday(){
-  const d=new Date();const day=d.getDay();
-  const diff=d.getDate()-day+(day===0?-6:1);
+  const d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);
   d.setDate(diff);d.setHours(0,0,0,0);
   return d.toISOString().split('T')[0];
 }
 function todayStr(){return new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'2-digit'})}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function save(){localStorage.setItem('jck_v3',JSON.stringify(state))}
+function saveLeadStatuses(){localStorage.setItem('jck_lead_status',JSON.stringify(leadStatuses))}
 
-function save(){localStorage.setItem('jck_sales',JSON.stringify(state))}
 function load(){
-  const raw=localStorage.getItem('jck_sales');
-  if(raw){
-    const d=JSON.parse(raw);
-    if(d.week===getMonday()){state=d;}
-    else{state={contacts:[],visits:[],bids:[],notes:'',week:getMonday()};}
+  const raw=localStorage.getItem('jck_v3');
+  if(raw){const d=JSON.parse(raw);if(d.week===getMonday())state=d;else{state={contacts:[],visits:[],bids:[],notes:'',week:getMonday()};save();}}
+  const ls=localStorage.getItem('jck_lead_status');
+  if(ls)leadStatuses=JSON.parse(ls);
+}
+
+async function loadLeads(){
+  try{
+    const r=await fetch('leads.json?v='+Date.now());
+    if(!r.ok)throw new Error('not found');
+    allLeads=await r.json();
+    filteredLeads=[...allLeads];
+    renderLeads();
+    const wk=new Date(getMonday()+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+    document.getElementById('leads-week').textContent=wk;
+    document.getElementById('leads-count').textContent=allLeads.length+' leads this week — only contacts with phone or email included.';
+  }catch(e){
+    document.getElementById('leads-table').innerHTML='<tr><td colspan="7" class="empty">Could not load leads.json — make sure it is in the same GitHub repo folder as index.html.</td></tr>';
   }
 }
 
 function showTab(t){
-  document.querySelectorAll('.tab').forEach((el,i)=>{
-    const tabs=['overview','contacts','visits','bids','leads'];
-    el.classList.toggle('active',tabs[i]===t);
-  });
+  document.querySelectorAll('.tab').forEach((el,i)=>{['overview','contacts','visits','bids','leads'].forEach((id,j)=>{if(i===j)el.classList.toggle('active',id===t)})});
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
   document.getElementById('page-'+t).classList.add('active');
 }
 
 function pct(n,g){return Math.min(100,Math.round(n/g*100))}
-function barColor(n,g){const p=n/g;return p>=1?'bg-green':p>=0.5?'bg-orange':'bg-red'}
-function textColor(n,g){const p=n/g;return p>=1?'green':p>=0.5?'orange':'red'}
+function barCls(n,g){const p=n/g;return p>=1?'bg-green':p>=0.5?'bg-orange':'bg-red'}
+function txtCls(n,g){const p=n/g;return p>=1?'green':p>=0.5?'orange':'red'}
 
 function updateOverview(){
-  const cc=state.contacts.length,vc=state.visits.length,bs=state.bids.filter(b=>b.status==='Submitted'||b.status==='Won'||b.status==='Lost').length;
-  document.getElementById('ov-contacts').textContent=cc;
-  document.getElementById('ov-contacts').className='metric-val '+textColor(cc,GOALS.contacts);
-  document.getElementById('ov-contacts-sub').textContent=cc>=GOALS.contacts?'Goal reached!':GOALS.contacts-cc+' remaining';
-  document.getElementById('ov-contacts-bar').style.width=pct(cc,GOALS.contacts)+'%';
-  document.getElementById('ov-contacts-bar').className='bar-fill '+barColor(cc,GOALS.contacts);
-
-  document.getElementById('ov-visits').textContent=vc;
-  document.getElementById('ov-visits').className='metric-val '+textColor(vc,GOALS.visits);
-  document.getElementById('ov-visits-sub').textContent=vc>=GOALS.visits?'Goal reached!':GOALS.visits-vc+' remaining';
-  document.getElementById('ov-visits-bar').style.width=pct(vc,GOALS.visits)+'%';
-  document.getElementById('ov-visits-bar').className='bar-fill '+barColor(vc,GOALS.visits);
-
-  document.getElementById('ov-bids').textContent=bs;
-  document.getElementById('ov-bids').className='metric-val '+textColor(bs,GOALS.bids);
-  document.getElementById('ov-bids-sub').textContent=bs>=GOALS.bids?'Goal reached!':GOALS.bids-bs+' remaining';
-  document.getElementById('ov-bids-bar').style.width=pct(bs,GOALS.bids)+'%';
-  document.getElementById('ov-bids-bar').className='bar-fill '+barColor(bs,GOALS.bids);
-
+  const cc=state.contacts.length,vc=state.visits.length,bs=state.bids.filter(b=>b.status!=='Pending').length;
+  const set=(id,n,g)=>{
+    document.getElementById(id).textContent=n;
+    document.getElementById(id).className='metric-val '+txtCls(n,g);
+    document.getElementById(id+'-bar').style.width=pct(n,g)+'%';
+    document.getElementById(id+'-bar').className='bar-fill '+barCls(n,g);
+  };
+  set('ov-c',cc,GOALS.contacts); document.getElementById('ov-c-sub').textContent=cc>=GOALS.contacts?'✓ Goal reached!':GOALS.contacts-cc+' remaining';
+  set('ov-v',vc,GOALS.visits);  document.getElementById('ov-v-sub').textContent=vc>=GOALS.visits?'✓ Goal reached!':GOALS.visits-vc+' remaining';
+  set('ov-b',bs,GOALS.bids);    document.getElementById('ov-b-sub').textContent=bs>=GOALS.bids?'✓ Goal reached!':GOALS.bids-bs+' remaining';
   const all=[
-    ...state.contacts.map(c=>({date:c.date,text:`Called/emailed <strong>${c.name}</strong> at ${c.company}`,type:'contact'})),
-    ...state.visits.map(v=>({date:v.date,text:`Visited <strong>${v.customer}</strong> — ${v.address}`,type:'visit'})),
-    ...state.bids.map(b=>({date:b.date,text:`Bid <strong>${b.project}</strong> — ${b.client} [${b.status}]`,type:'bid'}))
+    ...state.contacts.map(x=>({date:x.date,text:`<strong>${x.method}</strong> — ${x.name||'—'} @ ${x.company}`})),
+    ...state.visits.map(x=>({date:x.date,text:`<strong>Visit</strong> — ${x.customer} / ${x.address||'—'}`})),
+    ...state.bids.map(x=>({date:x.date,text:`<strong>Bid</strong> — ${x.project} [${x.status}]`}))
   ].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,10);
-
-  document.getElementById('ov-recent').innerHTML=all.length?
-    '<table><thead><tr><th>Date</th><th>Activity</th></tr></thead><tbody>'+
-    all.map(a=>`<tr><td>${a.date}</td><td>${a.text}</td></tr>`).join('')+
-    '</tbody></table>':
-    '<div class="empty">No activity logged yet this week</div>';
-
-  if(state.notes){
-    document.getElementById('saved-notes-display').textContent=state.notes;
-    document.getElementById('week-notes').value=state.notes;
-  }
-}
-
-function addContact(){
-  const name=document.getElementById('c-name').value.trim();
-  const company=document.getElementById('c-company').value.trim();
-  if(!name&&!company)return;
-  state.contacts.push({id:uid(),date:todayStr(),name:name||'—',company:company||'—',phone:document.getElementById('c-phone').value.trim(),method:document.getElementById('c-method').value,notes:document.getElementById('c-notes').value.trim()});
-  document.getElementById('c-name').value='';document.getElementById('c-company').value='';
-  document.getElementById('c-phone').value='';document.getElementById('c-notes').value='';
-  save();renderAll();
-}
-
-function addVisit(){
-  const customer=document.getElementById('v-customer').value.trim();
-  if(!customer)return;
-  state.visits.push({id:uid(),date:todayStr(),customer,address:document.getElementById('v-address').value.trim(),notes:document.getElementById('v-notes').value.trim()});
-  document.getElementById('v-customer').value='';document.getElementById('v-address').value='';document.getElementById('v-notes').value='';
-  save();renderAll();
-}
-
-function addBid(){
-  const project=document.getElementById('b-project').value.trim();
-  if(!project)return;
-  state.bids.push({id:uid(),date:todayStr(),project,client:document.getElementById('b-client').value.trim(),due:document.getElementById('b-due').value.trim(),status:document.getElementById('b-status').value});
-  document.getElementById('b-project').value='';document.getElementById('b-client').value='';document.getElementById('b-due').value='';
-  save();renderAll();
-}
-
-function deleteItem(type,id){
-  state[type]=state[type].filter(x=>x.id!==id);
-  save();renderAll();
-}
-
-function updateBidStatus(id,val){
-  const b=state.bids.find(x=>x.id===id);if(b)b.status=val;
-  save();renderAll();
-}
-
-function saveNotes(){
-  state.notes=document.getElementById('week-notes').value;
-  save();
-  document.getElementById('saved-notes-display').textContent=state.notes;
+  document.getElementById('ov-recent').innerHTML=all.length
+    ?'<div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Activity</th></tr></thead><tbody>'+all.map(a=>`<tr><td>${a.date}</td><td>${a.text}</td></tr>`).join('')+'</tbody></table></div>'
+    :'<div class="empty">No activity yet this week</div>';
+  if(state.notes){document.getElementById('notes-display').textContent=state.notes;document.getElementById('week-notes').value=state.notes;}
 }
 
 function renderContacts(){
-  const tbody=document.getElementById('contacts-table');
-  document.getElementById('contacts-title').textContent=`Contacts This Week (${state.contacts.length} / ${GOALS.contacts})`;
-  if(!state.contacts.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No contacts logged yet</td></tr>';return;}
-  tbody.innerHTML=[...state.contacts].reverse().map(c=>`
-    <tr>
-      <td>${c.date}</td>
-      <td>${c.name}</td>
-      <td>${c.company}</td>
-      <td><span class="badge badge-${c.method==='In-Person'?'inperson':c.method.toLowerCase()}">${c.method}</span></td>
-      <td>${c.notes||'—'}</td>
-      <td><button class="btn btn-sm btn-red" onclick="deleteItem('contacts','${c.id}')">×</button></td>
-    </tr>`).join('');
+  document.getElementById('c-title').textContent=`Contacts This Week (${state.contacts.length} / ${GOALS.contacts})`;
+  const tb=document.getElementById('c-table');
+  if(!state.contacts.length){tb.innerHTML='<tr><td colspan="6" class="empty">No contacts logged yet</td></tr>';return;}
+  tb.innerHTML=[...state.contacts].reverse().map(c=>`<tr>
+    <td>${c.date}</td><td>${c.name||'—'}</td><td>${c.company||'—'}</td>
+    <td><span class="badge badge-${c.method==='In-Person'?'inperson':c.method.toLowerCase()}">${c.method}</span></td>
+    <td style="max-width:180px;font-size:12px">${c.notes||'—'}</td>
+    <td><button class="btn btn-sm btn-red" onclick="del('contacts','${c.id}')">×</button></td>
+  </tr>`).join('');
 }
 
 function renderVisits(){
-  const tbody=document.getElementById('visits-table');
-  document.getElementById('visits-title').textContent=`Job Visits This Week (${state.visits.length} / ${GOALS.visits})`;
-  if(!state.visits.length){tbody.innerHTML='<tr><td colspan="5" class="empty">No visits logged yet</td></tr>';return;}
-  tbody.innerHTML=[...state.visits].reverse().map(v=>`
-    <tr>
-      <td>${v.date}</td>
-      <td>${v.customer}</td>
-      <td>${v.address||'—'}</td>
-      <td>${v.notes||'—'}</td>
-      <td><button class="btn btn-sm btn-red" onclick="deleteItem('visits','${v.id}')">×</button></td>
-    </tr>`).join('');
+  document.getElementById('v-title').textContent=`Job Visits This Week (${state.visits.length} / ${GOALS.visits})`;
+  const tb=document.getElementById('v-table');
+  if(!state.visits.length){tb.innerHTML='<tr><td colspan="5" class="empty">No visits logged yet</td></tr>';return;}
+  tb.innerHTML=[...state.visits].reverse().map(v=>`<tr>
+    <td>${v.date}</td><td>${v.customer}</td><td>${v.address||'—'}</td>
+    <td style="font-size:12px">${v.notes||'—'}</td>
+    <td><button class="btn btn-sm btn-red" onclick="del('visits','${v.id}')">×</button></td>
+  </tr>`).join('');
 }
 
 function renderBids(){
-  const tbody=document.getElementById('bids-table');
-  const sub=state.bids.filter(b=>b.status==='Submitted'||b.status==='Won'||b.status==='Lost').length;
-  document.getElementById('bids-title').textContent=`Bids This Week (${sub} submitted / ${GOALS.bids} goal)`;
-  if(!state.bids.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No bids logged yet</td></tr>';return;}
-  tbody.innerHTML=[...state.bids].reverse().map(b=>`
-    <tr>
-      <td>${b.date}</td>
-      <td>${b.project}</td>
-      <td>${b.client||'—'}</td>
-      <td>${b.due||'—'}</td>
-      <td><select class="btn btn-sm" onchange="updateBidStatus('${b.id}',this.value)" style="height:24px">
-        <option${b.status==='Pending'?' selected':''}>Pending</option>
-        <option${b.status==='Submitted'?' selected':''}>Submitted</option>
-        <option${b.status==='Won'?' selected':''}>Won</option>
-        <option${b.status==='Lost'?' selected':''}>Lost</option>
-      </select></td>
-      <td><button class="btn btn-sm btn-red" onclick="deleteItem('bids','${b.id}')">×</button></td>
-    </tr>`).join('');
-}
-
-// LEAD LIST
-const LEADS=[
-  // Royse City plant area
-  {company:'The Concrete Men',type:'Concrete Contractor',area:'Rockwall / Royse City',plant:'Royse City',phone:'N/A',url:'theconcretemen.net',status:'new'},
-  {company:'G&G Concrete',type:'Concrete Contractor',area:'Rockwall / Royse City',plant:'Royse City',phone:'469-861-9188',url:'ggconcrete.net',status:'new'},
-  {company:'Cardinal Concrete',type:'Concrete Contractor',area:'Rockwall',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Lopez Concrete',type:'Concrete Contractor',area:'Rockwall area',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Zuniga Concrete',type:'Concrete Contractor',area:'Rockwall area',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Texcrete Construction',type:'Concrete Contractor',area:'Royse City area',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Advanced Fabricators',type:'Concrete Contractor',area:'Royse City area',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Meadows Construction LLC',type:'General Contractor',area:'Rockwall area',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Custom Concrete (Princeton)',type:'Concrete Contractor',area:'Princeton',plant:'Royse City',phone:'469-455-4208',url:'N/A',status:'new'},
-  {company:'Concrete Contractor — Terrell',type:'Concrete Contractor',area:'Terrell',plant:'Royse City',phone:'214-450-6794',url:'N/A',status:'new'},
-  {company:'GC — Forney (Rockwall County)',type:'General Contractor',area:'Forney',plant:'Royse City',phone:'214-470-4678',url:'N/A',status:'new'},
-  {company:'GC — Rockwall (Meredith Dr)',type:'General Contractor',area:'Rockwall',plant:'Royse City',phone:'214-213-2124',url:'N/A',status:'new'},
-  {company:'Contractor — Fate TX',type:'Concrete Contractor',area:'Fate',plant:'Royse City',phone:'817-448-3153',url:'N/A',status:'new'},
-  {company:'Royse City Concrete Contractors',type:'Concrete Contractor',area:'Royse City',plant:'Royse City',phone:'N/A',url:'roysecityconcretecontractors.com',status:'new'},
-  {company:'Highland Homes',type:'Home Builder',area:'Rockwall / Heath',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Currin Construction Group',type:'General Contractor',area:'Royse City',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'WLS Landscape',type:'General Contractor',area:'Heath',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Vega Concrete',type:'Concrete Contractor',area:'Quinlan',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Lightning Construction & Concrete',type:'Concrete Contractor',area:'Terrell',plant:'Royse City',phone:'N/A',url:'N/A',status:'new'},
-  // Seagoville plant area
-  {company:'Castillo\'s Concrete & Paving',type:'Concrete Contractor',area:'Dallas / Seagoville',plant:'Seagoville',phone:'N/A',url:'N/A',status:'new'},
-  {company:'N&R Concrete Inc',type:'Concrete Contractor',area:'Lancaster',plant:'Seagoville',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Concrete Contractor — Seagoville',type:'Concrete Contractor',area:'Seagoville',plant:'Seagoville',phone:'972-287-1877',url:'N/A',status:'new'},
-  {company:'Concrete Contractor — Seagoville (Belt Line)',type:'Concrete Contractor',area:'Seagoville',plant:'Seagoville',phone:'972-287-9998',url:'N/A',status:'new'},
-  {company:'Concrete — Forney (Hwy 80)',type:'Concrete Contractor',area:'Forney',plant:'Seagoville',phone:'214-238-9233',url:'N/A',status:'new'},
-  {company:'Concrete — Forney (Manor Way)',type:'Concrete Contractor',area:'Forney',plant:'Seagoville',phone:'214-984-7279',url:'N/A',status:'new'},
-  {company:'Concrete — Forney (Clearview Dr)',type:'Concrete Contractor',area:'Forney',plant:'Seagoville',phone:'214-986-6989',url:'N/A',status:'new'},
-  {company:'Concrete — Crandall',type:'Concrete Contractor',area:'Crandall',plant:'Seagoville',phone:'469-879-0975',url:'N/A',status:'new'},
-  {company:'Rowlett Concrete (Smartt St)',type:'Concrete Contractor',area:'Rowlett',plant:'Seagoville',phone:'972-412-2665',url:'N/A',status:'new'},
-  {company:'Concrete — Dallas (Peachtree Rd)',type:'Concrete Contractor',area:'Balch Springs / Dallas',plant:'Seagoville',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Mesquite Concrete (Scyene Rd)',type:'Concrete Contractor',area:'Mesquite',plant:'Seagoville',phone:'615-355-1028',url:'N/A',status:'new'},
-  {company:'Mesquite Concrete (Executive Blvd)',type:'Concrete Contractor',area:'Mesquite',plant:'Seagoville',phone:'214-275-7930',url:'N/A',status:'new'},
-  {company:'Sunnyvale Contractor',type:'Concrete Contractor',area:'Sunnyvale',plant:'Seagoville',phone:'972-226-5843',url:'N/A',status:'new'},
-  // Kemp plant area
-  {company:'Rodriguez Concrete Construction',type:'Concrete Contractor',area:'Kemp',plant:'Kemp',phone:'903-275-8115',url:'N/A',status:'new'},
-  {company:'Concrete Contractor — Kemp (Seven Points Dr)',type:'Concrete Contractor',area:'Kemp',plant:'Kemp',phone:'903-292-3078',url:'N/A',status:'new'},
-  {company:'Concrete Contractor — Kaufman (CR 155)',type:'Concrete Contractor',area:'Kaufman',plant:'Kemp',phone:'972-932-2834',url:'N/A',status:'new'},
-  {company:'Morales Concrete Inc',type:'Concrete Contractor',area:'Gun Barrel City / Kemp',plant:'Kemp',phone:'N/A',url:'moralescandf.com',status:'new'},
-  {company:'2K Concrete & Fencing',type:'Concrete Contractor',area:'Mabank / Kemp',plant:'Kemp',phone:'N/A',url:'2kconcretetx.com',status:'new'},
-  {company:'New Beginnings Custom Homes',type:'Home Builder',area:'Cedar Creek Lake / Mabank',plant:'Kemp',phone:'N/A',url:'newbeginningscustomhomes.net',status:'new'},
-  {company:'Home Builder — Kemp (Hwy 175)',type:'Home Builder',area:'Kemp',plant:'Kemp',phone:'903-880-0116',url:'N/A',status:'new'},
-  {company:'Home Builder — Kemp (32 yrs)',type:'Home Builder',area:'Kemp',plant:'Kemp',phone:'903-498-3333',url:'N/A',status:'new'},
-  {company:'Home Builder — Mabank (3rd St)',type:'Home Builder',area:'Mabank',plant:'Kemp',phone:'903-887-4344',url:'N/A',status:'new'},
-  {company:'Home Builder — Mabank (Shady Shores)',type:'Home Builder',area:'Mabank',plant:'Kemp',phone:'903-451-4007',url:'N/A',status:'new'},
-  {company:'Home Builder — Tool TX',type:'Home Builder',area:'Tool',plant:'Kemp',phone:'903-432-4111',url:'N/A',status:'new'},
-  {company:'General Contractor — Kemp (Arnold Hills)',type:'General Contractor',area:'Kemp',plant:'Kemp',phone:'903-432-2675',url:'N/A',status:'new'},
-  {company:'General Contractor — Mabank (50 yrs)',type:'General Contractor',area:'Mabank',plant:'Kemp',phone:'903-432-9410',url:'N/A',status:'new'},
-  {company:'Alejandro Ortiz (Concrete)',type:'Concrete Contractor',area:'Tool',plant:'Kemp',phone:'N/A',url:'N/A',status:'new'},
-  // Ferris / Mobile plant area
-  {company:'CNB Trucking LLC',type:'Concrete Contractor',area:'Ferris',plant:'Mobile',phone:'N/A',url:'N/A',status:'new'},
-  {company:'Foundation Contractor — Mabank',type:'Concrete Contractor',area:'Mabank',plant:'Kemp',phone:'972-270-3712',url:'N/A',status:'new'},
-  {company:'GC — Kemp (Leah Ln, 19 yrs)',type:'General Contractor',area:'Kemp',plant:'Kemp',phone:'903-340-6182',url:'N/A',status:'new'},
-  {company:'Commercial Developer — Mabank',type:'Commercial Developer',area:'Mabank',plant:'Kemp',phone:'903-451-3195',url:'N/A',status:'new'},
-];
-
-let currentLeads=[...LEADS];
-let leadStatuses={};
-
-function filterLeads(filter, btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  if(filter==='all'){currentLeads=[...LEADS];}
-  else{currentLeads=LEADS.filter(l=>l.plant===filter||l.type===filter||l.area.includes(filter));}
-  renderLeads();
+  const sub=state.bids.filter(b=>b.status!=='Pending').length;
+  document.getElementById('b-title').textContent=`Bids (${sub} submitted / ${GOALS.bids} goal)`;
+  const tb=document.getElementById('b-table');
+  if(!state.bids.length){tb.innerHTML='<tr><td colspan="6" class="empty">No bids logged yet</td></tr>';return;}
+  tb.innerHTML=[...state.bids].reverse().map(b=>`<tr>
+    <td>${b.date}</td><td>${b.project}</td><td>${b.client||'—'}</td><td>${b.due||'—'}</td>
+    <td><select class="btn btn-sm" onchange="updBid('${b.id}',this.value)" style="height:24px;padding:0 6px">
+      <option${b.status==='Pending'?' selected':''}>Pending</option>
+      <option${b.status==='Submitted'?' selected':''}>Submitted</option>
+      <option${b.status==='Won'?' selected':''}>Won</option>
+      <option${b.status==='Lost'?' selected':''}>Lost</option>
+    </select></td>
+    <td><button class="btn btn-sm btn-red" onclick="del('bids','${b.id}')">×</button></td>
+  </tr>`).join('');
 }
 
 function renderLeads(){
-  const tbody=document.getElementById('leads-table');
-  if(!currentLeads.length){tbody.innerHTML='<tr><td colspan="6" class="empty">No leads found</td></tr>';return;}
-  tbody.innerHTML=currentLeads.map((l,i)=>{
-    const st=leadStatuses[l.company]||'new';
-    const stBadge=st==='called'?'badge-phone':st==='emailed'?'badge-email':st==='visited'?'badge-inperson':st==='not interested'?'badge-lost':'badge-prospect';
+  const tb=document.getElementById('leads-table');
+  if(!filteredLeads.length){tb.innerHTML='<tr><td colspan="7" class="empty">No leads match filter</td></tr>';return;}
+  tb.innerHTML=filteredLeads.map(l=>{
+    const st=leadStatuses[l.id]||l.status||'new';
+    const stCls='badge-'+(st==='not interested'?'notinterested':st);
     return `<tr>
-      <td><strong>${l.company}</strong>${l.url&&l.url!=='N/A'?`<br><span style="font-size:11px;color:#999">${l.url}</span>`:''}</td>
-      <td><span class="badge badge-customer" style="font-size:10px">${l.type}</span></td>
-      <td>${l.area}</td>
-      <td>${l.phone!=='N/A'?`<a href="tel:${l.phone}" style="color:#1a1a2e">${l.phone}</a>`:'<span style="color:#ccc">—</span>'}</td>
-      <td><span class="badge ${stBadge}">${st}</span></td>
-      <td style="white-space:nowrap">
-        <button class="btn btn-sm btn-green" style="margin-right:3px" onclick="setLeadStatus('${l.company}','called')">Called</button>
-        <button class="btn btn-sm btn-gray" onclick="setLeadStatus('${l.company}','emailed')">Emailed</button>
+      <td><strong>${l.company}</strong>${l.contact?`<br><span class="lead-note">${l.contact}${l.title?' — '+l.title:''}</span>`:''}
+      ${l.notes?`<br><span class="lead-note">${l.notes}</span>`:''}
+      </td>
+      <td><span class="badge badge-gray" style="font-size:10px;background:#f1f5f9;color:#475569">${l.type}</span></td>
+      <td style="font-size:12px">${l.area}<br><span class="lead-note">${l.plant} plant</span></td>
+      <td>${l.phone?`<a href="tel:${l.phone}" style="color:#1a1a2e;font-weight:500">${l.phone}</a>`:'<span style="color:#ccc">—</span>'}</td>
+      <td style="font-size:12px">${l.email?`<a href="mailto:${l.email}" style="color:#1a1a2e">${l.email}</a>`:'<span style="color:#ccc">—</span>'}</td>
+      <td><span class="badge ${stCls}">${st}</span></td>
+      <td style="white-space:nowrap;display:flex;gap:4px;flex-wrap:wrap">
+        <button class="btn btn-sm btn-blue" onclick="logLead('${l.id}','called')">Called</button>
+        <button class="btn btn-sm btn-green" onclick="logLead('${l.id}','emailed')">Emailed</button>
+        <button class="btn btn-sm btn-gray" onclick="setLeadOnly('${l.id}','not interested')">✕</button>
       </td>
     </tr>`;
   }).join('');
 }
 
-function setLeadStatus(company, status){
-  leadStatuses[company]=status;
-  localStorage.setItem('jck_leads',JSON.stringify(leadStatuses));
-  // Also auto-log as a contact
-  const lead=LEADS.find(l=>l.company===company);
+function filterLeads(f,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(f==='all') filteredLeads=[...allLeads];
+  else if(f==='new') filteredLeads=allLeads.filter(l=>!leadStatuses[l.id]||leadStatuses[l.id]==='new');
+  else filteredLeads=allLeads.filter(l=>l.plant===f||l.type===f||l.area.includes(f));
+  renderLeads();
+}
+
+function logLead(id,action){
+  leadStatuses[id]=action;
+  saveLeadStatuses();
+  const lead=allLeads.find(l=>l.id===id);
   if(lead){
-    const method=status==='called'?'Phone':'Email';
-    state.contacts.push({id:uid(),date:todayStr(),name:'—',company,phone:lead.phone,method,notes:'From lead list'});
-    save();
-    updateOverview();
-    renderContacts();
+    state.contacts.push({id:uid(),date:todayStr(),name:lead.contact||'—',company:lead.company,phone:lead.phone||lead.email,method:action==='called'?'Phone':'Email',notes:'From lead list'+(lead.notes?' — '+lead.notes:'')});
+    save();updateOverview();renderContacts();
   }
   renderLeads();
 }
 
-function renderAll(){
-  updateOverview();
-  renderContacts();
-  renderVisits();
-  renderBids();
+function setLeadOnly(id,status){
+  leadStatuses[id]=status;
+  saveLeadStatuses();
+  renderLeads();
 }
 
-// Set week display
-const mon=new Date(getMonday()+'T12:00:00');
-document.getElementById('week-display').textContent='Week of '+mon.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+function addContact(){
+  const n=document.getElementById('c-name').value.trim(),co=document.getElementById('c-company').value.trim();
+  if(!n&&!co)return;
+  state.contacts.push({id:uid(),date:todayStr(),name:n||'—',company:co||'—',phone:document.getElementById('c-phone').value.trim(),method:document.getElementById('c-method').value,notes:document.getElementById('c-notes').value.trim()});
+  document.getElementById('c-name').value='';document.getElementById('c-company').value='';document.getElementById('c-phone').value='';document.getElementById('c-notes').value='';
+  save();renderAll();
+}
 
-// Load lead statuses
-const savedLeads=localStorage.getItem('jck_leads');
-if(savedLeads)leadStatuses=JSON.parse(savedLeads);
+function addVisit(){
+  const c=document.getElementById('v-customer').value.trim();if(!c)return;
+  state.visits.push({id:uid(),date:todayStr(),customer:c,address:document.getElementById('v-address').value.trim(),notes:document.getElementById('v-notes').value.trim()});
+  document.getElementById('v-customer').value='';document.getElementById('v-address').value='';document.getElementById('v-notes').value='';
+  save();renderAll();
+}
 
-load();
-renderAll();
-renderLeads();
+function addBid(){
+  const p=document.getElementById('b-project').value.trim();if(!p)return;
+  state.bids.push({id:uid(),date:todayStr(),project:p,client:document.getElementById('b-client').value.trim(),due:document.getElementById('b-due').value.trim(),status:document.getElementById('b-status').value});
+  document.getElementById('b-project').value='';document.getElementById('b-client').value='';document.getElementById('b-due').value='';
+  save();renderAll();
+}
+
+function updBid(id,s){const b=state.bids.find(x=>x.id===id);if(b)b.status=s;save();renderAll();}
+function del(t,id){state[t]=state[t].filter(x=>x.id!==id);save();renderAll();}
+function saveNotes(){state.notes=document.getElementById('week-notes').value;save();document.getElementById('notes-display').textContent=state.notes;}
+function renderAll(){updateOverview();renderContacts();renderVisits();renderBids();}
+
+const wk=new Date(getMonday()+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+document.getElementById('week-display').textContent='Week of '+wk;
+load();renderAll();loadLeads();
 </script>
 </body>
 </html>
