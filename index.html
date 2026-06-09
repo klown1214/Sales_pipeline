@@ -27,7 +27,7 @@ header span{font-size:12px;opacity:.7}
 .green{color:#16a34a}.orange{color:#ea580c}.red{color:#dc2626}
 .bg-green{background:#16a34a}.bg-orange{background:#ea580c}.bg-red{background:#dc2626}
 .card{background:#fff;border-radius:10px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:14px}
-.card-title{font-size:13px;font-weight:600;margin-bottom:12px;color:#1a1a2e}
+.card-title{font-size:13px;font-weight:600;margin-bottom:12px;color:#1a1a2e;display:flex;align-items:center;justify-content:space-between}
 .form-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
 .form-row input,.form-row select{padding:7px 9px;border:1px solid #ddd;border-radius:6px;font-size:13px;background:#fafafa;color:#1a1a1a;min-width:0}
 .form-row input[type=text]{flex:1;min-width:100px}
@@ -40,8 +40,9 @@ header span{font-size:12px;opacity:.7}
 .btn-blue{background:#dbeafe;color:#1e40af;border-color:#bfdbfe}
 .btn-red{background:#fee2e2;color:#dc2626;border-color:#fecaca}
 .btn-gray{background:#f1f5f9;color:#475569;border-color:#e2e8f0}
+.btn-print{background:#f0fdf4;color:#15803d;border-color:#bbf7d0;display:flex;align-items:center;gap:5px}
 .tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:400px}
 th{text-align:left;padding:8px 10px;background:#f8f9fa;color:#666;font-size:11px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid #eee}
 td{padding:8px 10px;border-bottom:1px solid #f3f3f3;vertical-align:middle}
 tr:hover td{background:#fafbff}
@@ -65,11 +66,32 @@ tr:hover td{background:#fafbff}
 .filter-btn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
 .lead-note{font-size:11px;color:#999}
 .loading{text-align:center;padding:30px;color:#999;font-size:13px}
+.report-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.report-stat{background:#f8f9fa;border-radius:8px;padding:12px 14px;text-align:center;border:1px solid #eee}
+.report-stat-val{font-size:24px;font-weight:700;color:#1a1a2e}
+.report-stat-label{font-size:11px;color:#888;margin-top:3px}
 @media(max-width:600px){
   .metrics{grid-template-columns:1fr 1fr}
   .metric-val{font-size:24px}
   header h1{font-size:15px}
+  .report-summary{grid-template-columns:1fr 1fr}
 }
+@media print{
+  header,
+  .tabs,
+  #page-overview,
+  #page-contacts,
+  #page-visits,
+  #page-bids,
+  #page-leads,
+  .btn-print,
+  .card-title button,
+  .filter-bar{display:none!important}
+  #print-area{display:block!important}
+  body{background:#fff}
+  .print-card{box-shadow:none;border:1px solid #ddd}
+}
+#print-area{display:none}
 </style>
 </head>
 <body>
@@ -83,8 +105,10 @@ tr:hover td{background:#fafbff}
   <div class="tab" onclick="showTab('visits')">Job Visits</div>
   <div class="tab" onclick="showTab('bids')">Bids</div>
   <div class="tab" onclick="showTab('leads')">Lead List</div>
+  <div class="tab" onclick="showTab('report')">Weekly Report</div>
 </div>
 
+<!-- OVERVIEW -->
 <div id="page-overview" class="page active">
   <div class="metrics">
     <div class="metric">
@@ -118,6 +142,7 @@ tr:hover td{background:#fafbff}
   </div>
 </div>
 
+<!-- CONTACTS -->
 <div id="page-contacts" class="page">
   <div class="card">
     <div class="card-title">Log a Contact</div>
@@ -142,6 +167,7 @@ tr:hover td{background:#fafbff}
   </div>
 </div>
 
+<!-- VISITS -->
 <div id="page-visits" class="page">
   <div class="card">
     <div class="card-title">Log a Job Visit</div>
@@ -162,6 +188,7 @@ tr:hover td{background:#fafbff}
   </div>
 </div>
 
+<!-- BIDS -->
 <div id="page-bids" class="page">
   <div class="card">
     <div class="card-title">Log a Bid</div>
@@ -183,11 +210,12 @@ tr:hover td{background:#fafbff}
   </div>
 </div>
 
+<!-- LEADS -->
 <div id="page-leads" class="page">
   <div class="card">
     <div class="card-title">Lead List — Week of <span id="leads-week"></span></div>
     <div class="week-note" id="leads-count">Loading leads...</div>
-    <div class="filter-bar" id="filter-bar">
+    <div class="filter-bar">
       <button class="filter-btn active" onclick="filterLeads('all',this)">All</button>
       <button class="filter-btn" onclick="filterLeads('Royse City',this)">Royse City</button>
       <button class="filter-btn" onclick="filterLeads('Seagoville',this)">Seagoville</button>
@@ -206,15 +234,89 @@ tr:hover td{background:#fafbff}
   </div>
 </div>
 
+<!-- WEEKLY REPORT -->
+<div id="page-report" class="page">
+  <div class="card">
+    <div class="card-title">
+      <span>Weekly Activity Report</span>
+      <button class="btn btn-print" onclick="printReport()">&#128438; Print / Save PDF</button>
+    </div>
+    <div class="week-note" id="report-week-label"></div>
+    <div class="report-summary" id="report-summary"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">New Contacts <span id="report-c-count" style="font-weight:400;color:#888;font-size:12px"></span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Company</th><th>Contact Name</th><th>Phone / Email</th><th>Method</th><th>Notes</th></tr></thead>
+        <tbody id="report-c-table"><tr><td colspan="6" class="empty">No contacts logged</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Job Visits <span id="report-v-count" style="font-weight:400;color:#888;font-size:12px"></span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Customer</th><th>Address</th><th>Notes</th></tr></thead>
+        <tbody id="report-v-table"><tr><td colspan="4" class="empty">No visits logged</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Bids <span id="report-b-count" style="font-weight:400;color:#888;font-size:12px"></span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Project</th><th>Client</th><th>Due Date</th><th>Status</th></tr></thead>
+        <tbody id="report-b-table"><tr><td colspan="5" class="empty">No bids logged</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Leads Contacted from Lead List <span id="report-l-count" style="font-weight:400;color:#888;font-size:12px"></span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Company</th><th>Contact</th><th>Type</th><th>Area</th><th>Phone</th><th>Email</th><th>Method</th></tr></thead>
+        <tbody id="report-l-table"><tr><td colspan="7" class="empty">No leads contacted yet</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PRINT AREA -->
+<div id="print-area">
+  <div style="padding:24px;max-width:900px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;border-bottom:2px solid #1a1a2e;padding-bottom:14px">
+      <div>
+        <h2 style="font-size:20px;font-weight:700;color:#1a1a2e">JCK Batch Plant — Weekly Sales Report</h2>
+        <div style="font-size:13px;color:#555;margin-top:4px">Sales Rep: William Emmett</div>
+        <div style="font-size:13px;color:#555" id="print-week"></div>
+      </div>
+      <div style="text-align:right;font-size:12px;color:#888" id="print-date"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px" id="print-summary"></div>
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#1a1a2e;border-bottom:1px solid #eee;padding-bottom:6px">New Contacts</h3>
+    <div id="print-contacts" style="margin-bottom:20px"></div>
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#1a1a2e;border-bottom:1px solid #eee;padding-bottom:6px">Job Visits</h3>
+    <div id="print-visits" style="margin-bottom:20px"></div>
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#1a1a2e;border-bottom:1px solid #eee;padding-bottom:6px">Bids</h3>
+    <div id="print-bids" style="margin-bottom:20px"></div>
+    <h3 style="font-size:14px;font-weight:600;margin-bottom:8px;color:#1a1a2e;border-bottom:1px solid #eee;padding-bottom:6px">Leads Contacted</h3>
+    <div id="print-leads"></div>
+  </div>
+</div>
+
 <script>
 const GOALS={contacts:50,visits:10,bids:5};
 let state={contacts:[],visits:[],bids:[],notes:'',week:getMonday()};
-let allLeads=[], filteredLeads=[], leadStatuses={};
+let allLeads=[],filteredLeads=[],leadStatuses={};
 
 function getMonday(){
   const d=new Date(),day=d.getDay(),diff=d.getDate()-day+(day===0?-6:1);
-  d.setDate(diff);d.setHours(0,0,0,0);
-  return d.toISOString().split('T')[0];
+  d.setDate(diff);d.setHours(0,0,0,0);return d.toISOString().split('T')[0];
 }
 function todayStr(){return new Date().toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'2-digit'})}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
@@ -231,22 +333,23 @@ function load(){
 async function loadLeads(){
   try{
     const r=await fetch('leads.json?v='+Date.now());
-    if(!r.ok)throw new Error('not found');
+    if(!r.ok)throw new Error();
     allLeads=await r.json();
     filteredLeads=[...allLeads];
     renderLeads();
     const wk=new Date(getMonday()+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     document.getElementById('leads-week').textContent=wk;
-    document.getElementById('leads-count').textContent=allLeads.length+' leads this week — only contacts with phone or email included.';
+    document.getElementById('leads-count').textContent=allLeads.length+' leads this week — phone or email verified.';
   }catch(e){
-    document.getElementById('leads-table').innerHTML='<tr><td colspan="7" class="empty">Could not load leads.json — make sure it is in the same GitHub repo folder as index.html.</td></tr>';
+    document.getElementById('leads-table').innerHTML='<tr><td colspan="7" class="empty">Could not load leads.json</td></tr>';
   }
 }
 
 function showTab(t){
-  document.querySelectorAll('.tab').forEach((el,i)=>{['overview','contacts','visits','bids','leads'].forEach((id,j)=>{if(i===j)el.classList.toggle('active',id===t)})});
+  document.querySelectorAll('.tab').forEach((el,i)=>{['overview','contacts','visits','bids','leads','report'].forEach((id,j)=>{if(i===j)el.classList.toggle('active',id===t)})});
   document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
   document.getElementById('page-'+t).classList.add('active');
+  if(t==='report')renderReport();
 }
 
 function pct(n,g){return Math.min(100,Math.round(n/g*100))}
@@ -261,9 +364,9 @@ function updateOverview(){
     document.getElementById(id+'-bar').style.width=pct(n,g)+'%';
     document.getElementById(id+'-bar').className='bar-fill '+barCls(n,g);
   };
-  set('ov-c',cc,GOALS.contacts); document.getElementById('ov-c-sub').textContent=cc>=GOALS.contacts?'✓ Goal reached!':GOALS.contacts-cc+' remaining';
-  set('ov-v',vc,GOALS.visits);  document.getElementById('ov-v-sub').textContent=vc>=GOALS.visits?'✓ Goal reached!':GOALS.visits-vc+' remaining';
-  set('ov-b',bs,GOALS.bids);    document.getElementById('ov-b-sub').textContent=bs>=GOALS.bids?'✓ Goal reached!':GOALS.bids-bs+' remaining';
+  set('ov-c',cc,GOALS.contacts);document.getElementById('ov-c-sub').textContent=cc>=GOALS.contacts?'✓ Goal reached!':GOALS.contacts-cc+' remaining';
+  set('ov-v',vc,GOALS.visits);document.getElementById('ov-v-sub').textContent=vc>=GOALS.visits?'✓ Goal reached!':GOALS.visits-vc+' remaining';
+  set('ov-b',bs,GOALS.bids);document.getElementById('ov-b-sub').textContent=bs>=GOALS.bids?'✓ Goal reached!':GOALS.bids-bs+' remaining';
   const all=[
     ...state.contacts.map(x=>({date:x.date,text:`<strong>${x.method}</strong> — ${x.name||'—'} @ ${x.company}`})),
     ...state.visits.map(x=>({date:x.date,text:`<strong>Visit</strong> — ${x.customer} / ${x.address||'—'}`})),
@@ -319,13 +422,13 @@ function renderLeads(){
   const tb=document.getElementById('leads-table');
   if(!filteredLeads.length){tb.innerHTML='<tr><td colspan="7" class="empty">No leads match filter</td></tr>';return;}
   tb.innerHTML=filteredLeads.map(l=>{
-    const st=leadStatuses[l.id]||l.status||'new';
-    const stCls='badge-'+(st==='not interested'?'notinterested':st);
+    const st=leadStatuses[l.id]||'new';
+    const stCls='badge-'+(st==='not interested'?'notinterested':st.replace(' ',''));
     return `<tr>
       <td><strong>${l.company}</strong>${l.contact?`<br><span class="lead-note">${l.contact}${l.title?' — '+l.title:''}</span>`:''}
       ${l.notes?`<br><span class="lead-note">${l.notes}</span>`:''}
       </td>
-      <td><span class="badge badge-gray" style="font-size:10px;background:#f1f5f9;color:#475569">${l.type}</span></td>
+      <td><span style="font-size:10px;background:#f1f5f9;color:#475569;padding:2px 6px;border-radius:10px">${l.type}</span></td>
       <td style="font-size:12px">${l.area}<br><span class="lead-note">${l.plant} plant</span></td>
       <td>${l.phone?`<a href="tel:${l.phone}" style="color:#1a1a2e;font-weight:500">${l.phone}</a>`:'<span style="color:#ccc">—</span>'}</td>
       <td style="font-size:12px">${l.email?`<a href="mailto:${l.email}" style="color:#1a1a2e">${l.email}</a>`:'<span style="color:#ccc">—</span>'}</td>
@@ -339,32 +442,132 @@ function renderLeads(){
   }).join('');
 }
 
+function renderReport(){
+  const wk=new Date(getMonday()+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  document.getElementById('report-week-label').textContent='Week of '+wk+' — Sales Rep: William Emmett';
+
+  const cc=state.contacts.length,vc=state.visits.length,bs=state.bids.filter(b=>b.status!=='Pending').length;
+  const contacted=allLeads.filter(l=>leadStatuses[l.id]&&leadStatuses[l.id]!=='new'&&leadStatuses[l.id]!=='not interested');
+
+  // Summary boxes
+  document.getElementById('report-summary').innerHTML=`
+    <div class="report-stat"><div class="report-stat-val ${txtCls(cc,GOALS.contacts)}">${cc}<span style="font-size:14px;color:#aaa"> / ${GOALS.contacts}</span></div><div class="report-stat-label">New Contacts</div></div>
+    <div class="report-stat"><div class="report-stat-val ${txtCls(vc,GOALS.visits)}">${vc}<span style="font-size:14px;color:#aaa"> / ${GOALS.visits}</span></div><div class="report-stat-label">Job Visits</div></div>
+    <div class="report-stat"><div class="report-stat-val ${txtCls(bs,GOALS.bids)}">${bs}<span style="font-size:14px;color:#aaa"> / ${GOALS.bids}</span></div><div class="report-stat-label">Bids Submitted</div></div>
+    <div class="report-stat"><div class="report-stat-val">${contacted.length}</div><div class="report-stat-label">Leads Contacted</div></div>
+  `;
+
+  // Contacts table
+  document.getElementById('report-c-count').textContent='('+cc+' of '+GOALS.contacts+' goal)';
+  document.getElementById('report-c-table').innerHTML=state.contacts.length
+    ?state.contacts.map(c=>`<tr>
+      <td>${c.date}</td><td>${c.company||'—'}</td><td>${c.name||'—'}</td>
+      <td>${c.phone||'—'}</td>
+      <td><span class="badge badge-${c.method==='In-Person'?'inperson':c.method.toLowerCase()}">${c.method}</span></td>
+      <td style="font-size:12px">${c.notes||'—'}</td>
+    </tr>`).join('')
+    :'<tr><td colspan="6" class="empty">No contacts logged</td></tr>';
+
+  // Visits table
+  document.getElementById('report-v-count').textContent='('+vc+' of '+GOALS.visits+' goal)';
+  document.getElementById('report-v-table').innerHTML=state.visits.length
+    ?state.visits.map(v=>`<tr><td>${v.date}</td><td>${v.customer}</td><td>${v.address||'—'}</td><td style="font-size:12px">${v.notes||'—'}</td></tr>`).join('')
+    :'<tr><td colspan="4" class="empty">No visits logged</td></tr>';
+
+  // Bids table
+  document.getElementById('report-b-count').textContent='('+bs+' submitted of '+GOALS.bids+' goal)';
+  document.getElementById('report-b-table').innerHTML=state.bids.length
+    ?state.bids.map(b=>`<tr>
+      <td>${b.date}</td><td>${b.project}</td><td>${b.client||'—'}</td><td>${b.due||'—'}</td>
+      <td><span class="badge badge-${b.status.toLowerCase()}">${b.status}</span></td>
+    </tr>`).join('')
+    :'<tr><td colspan="5" class="empty">No bids logged</td></tr>';
+
+  // Leads contacted table
+  document.getElementById('report-l-count').textContent='('+contacted.length+' leads)';
+  document.getElementById('report-l-table').innerHTML=contacted.length
+    ?contacted.map(l=>{
+      const st=leadStatuses[l.id];
+      return `<tr>
+        <td><strong>${l.company}</strong></td>
+        <td>${l.contact||'—'}</td>
+        <td style="font-size:11px">${l.type}</td>
+        <td style="font-size:12px">${l.area}</td>
+        <td>${l.phone||'—'}</td>
+        <td style="font-size:12px">${l.email||'—'}</td>
+        <td><span class="badge badge-${st==='called'?'phone':'email'}">${st}</span></td>
+      </tr>`;
+    }).join('')
+    :'<tr><td colspan="7" class="empty">No leads contacted from lead list yet</td></tr>';
+}
+
+function printReport(){
+  const wk=new Date(getMonday()+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const cc=state.contacts.length,vc=state.visits.length,bs=state.bids.filter(b=>b.status!=='Pending').length;
+  const contacted=allLeads.filter(l=>leadStatuses[l.id]&&leadStatuses[l.id]!=='new'&&leadStatuses[l.id]!=='not interested');
+
+  document.getElementById('print-week').textContent='Week of '+wk;
+  document.getElementById('print-date').textContent='Printed: '+new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+
+  const statStyle='background:#f8f9fa;border-radius:8px;padding:12px;text-align:center;border:1px solid #eee';
+  document.getElementById('print-summary').innerHTML=`
+    <div style="${statStyle}"><div style="font-size:22px;font-weight:700;color:#1a1a2e">${cc} / ${GOALS.contacts}</div><div style="font-size:11px;color:#888;margin-top:3px">New Contacts</div></div>
+    <div style="${statStyle}"><div style="font-size:22px;font-weight:700;color:#1a1a2e">${vc} / ${GOALS.visits}</div><div style="font-size:11px;color:#888;margin-top:3px">Job Visits</div></div>
+    <div style="${statStyle}"><div style="font-size:22px;font-weight:700;color:#1a1a2e">${bs} / ${GOALS.bids}</div><div style="font-size:11px;color:#888;margin-top:3px">Bids Submitted</div></div>
+    <div style="${statStyle}"><div style="font-size:22px;font-weight:700;color:#1a1a2e">${contacted.length}</div><div style="font-size:11px;color:#888;margin-top:3px">Leads Contacted</div></div>
+  `;
+
+  const tblStyle='width:100%;border-collapse:collapse;font-size:12px;margin-bottom:4px';
+  const thStyle='text-align:left;padding:6px 8px;background:#f8f9fa;border-bottom:1px solid #ddd;font-size:10px;text-transform:uppercase';
+  const tdStyle='padding:6px 8px;border-bottom:1px solid #f0f0f0';
+
+  document.getElementById('print-contacts').innerHTML=state.contacts.length
+    ?`<table style="${tblStyle}"><thead><tr><th style="${thStyle}">Date</th><th style="${thStyle}">Company</th><th style="${thStyle}">Contact</th><th style="${thStyle}">Phone/Email</th><th style="${thStyle}">Method</th><th style="${thStyle}">Notes</th></tr></thead><tbody>`
+    +state.contacts.map(c=>`<tr><td style="${tdStyle}">${c.date}</td><td style="${tdStyle}">${c.company||'—'}</td><td style="${tdStyle}">${c.name||'—'}</td><td style="${tdStyle}">${c.phone||'—'}</td><td style="${tdStyle}">${c.method}</td><td style="${tdStyle}">${c.notes||'—'}</td></tr>`).join('')
+    +'</tbody></table>'
+    :'<p style="color:#aaa;font-size:12px;padding:8px 0">No contacts logged</p>';
+
+  document.getElementById('print-visits').innerHTML=state.visits.length
+    ?`<table style="${tblStyle}"><thead><tr><th style="${thStyle}">Date</th><th style="${thStyle}">Customer</th><th style="${thStyle}">Address</th><th style="${thStyle}">Notes</th></tr></thead><tbody>`
+    +state.visits.map(v=>`<tr><td style="${tdStyle}">${v.date}</td><td style="${tdStyle}">${v.customer}</td><td style="${tdStyle}">${v.address||'—'}</td><td style="${tdStyle}">${v.notes||'—'}</td></tr>`).join('')
+    +'</tbody></table>'
+    :'<p style="color:#aaa;font-size:12px;padding:8px 0">No visits logged</p>';
+
+  document.getElementById('print-bids').innerHTML=state.bids.length
+    ?`<table style="${tblStyle}"><thead><tr><th style="${thStyle}">Date</th><th style="${thStyle}">Project</th><th style="${thStyle}">Client</th><th style="${thStyle}">Due</th><th style="${thStyle}">Status</th></tr></thead><tbody>`
+    +state.bids.map(b=>`<tr><td style="${tdStyle}">${b.date}</td><td style="${tdStyle}">${b.project}</td><td style="${tdStyle}">${b.client||'—'}</td><td style="${tdStyle}">${b.due||'—'}</td><td style="${tdStyle}">${b.status}</td></tr>`).join('')
+    +'</tbody></table>'
+    :'<p style="color:#aaa;font-size:12px;padding:8px 0">No bids logged</p>';
+
+  document.getElementById('print-leads').innerHTML=contacted.length
+    ?`<table style="${tblStyle}"><thead><tr><th style="${thStyle}">Company</th><th style="${thStyle}">Contact</th><th style="${thStyle}">Type</th><th style="${thStyle}">Area</th><th style="${thStyle}">Phone</th><th style="${thStyle}">Email</th><th style="${thStyle}">Method</th></tr></thead><tbody>`
+    +contacted.map(l=>`<tr><td style="${tdStyle}">${l.company}</td><td style="${tdStyle}">${l.contact||'—'}</td><td style="${tdStyle}">${l.type}</td><td style="${tdStyle}">${l.area}</td><td style="${tdStyle}">${l.phone||'—'}</td><td style="${tdStyle}">${l.email||'—'}</td><td style="${tdStyle}">${leadStatuses[l.id]}</td></tr>`).join('')
+    +'</tbody></table>'
+    :'<p style="color:#aaa;font-size:12px;padding:8px 0">No leads contacted from list</p>';
+
+  window.print();
+}
+
 function filterLeads(f,btn){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  if(f==='all') filteredLeads=[...allLeads];
-  else if(f==='new') filteredLeads=allLeads.filter(l=>!leadStatuses[l.id]||leadStatuses[l.id]==='new');
+  if(f==='all')filteredLeads=[...allLeads];
+  else if(f==='new')filteredLeads=allLeads.filter(l=>!leadStatuses[l.id]||leadStatuses[l.id]==='new');
   else filteredLeads=allLeads.filter(l=>l.plant===f||l.type===f||l.area.includes(f));
   renderLeads();
 }
 
 function logLead(id,action){
-  leadStatuses[id]=action;
-  saveLeadStatuses();
+  leadStatuses[id]=action;saveLeadStatuses();
   const lead=allLeads.find(l=>l.id===id);
   if(lead){
-    state.contacts.push({id:uid(),date:todayStr(),name:lead.contact||'—',company:lead.company,phone:lead.phone||lead.email,method:action==='called'?'Phone':'Email',notes:'From lead list'+(lead.notes?' — '+lead.notes:'')});
+    state.contacts.push({id:uid(),date:todayStr(),name:lead.contact||'—',company:lead.company,phone:lead.phone||lead.email,method:action==='called'?'Phone':'Email',notes:'Lead list'+(lead.notes?' — '+lead.notes:'')});
     save();updateOverview();renderContacts();
   }
   renderLeads();
 }
 
-function setLeadOnly(id,status){
-  leadStatuses[id]=status;
-  saveLeadStatuses();
-  renderLeads();
-}
-
+function setLeadOnly(id,status){leadStatuses[id]=status;saveLeadStatuses();renderLeads();}
 function addContact(){
   const n=document.getElementById('c-name').value.trim(),co=document.getElementById('c-company').value.trim();
   if(!n&&!co)return;
@@ -372,21 +575,18 @@ function addContact(){
   document.getElementById('c-name').value='';document.getElementById('c-company').value='';document.getElementById('c-phone').value='';document.getElementById('c-notes').value='';
   save();renderAll();
 }
-
 function addVisit(){
   const c=document.getElementById('v-customer').value.trim();if(!c)return;
   state.visits.push({id:uid(),date:todayStr(),customer:c,address:document.getElementById('v-address').value.trim(),notes:document.getElementById('v-notes').value.trim()});
   document.getElementById('v-customer').value='';document.getElementById('v-address').value='';document.getElementById('v-notes').value='';
   save();renderAll();
 }
-
 function addBid(){
   const p=document.getElementById('b-project').value.trim();if(!p)return;
   state.bids.push({id:uid(),date:todayStr(),project:p,client:document.getElementById('b-client').value.trim(),due:document.getElementById('b-due').value.trim(),status:document.getElementById('b-status').value});
   document.getElementById('b-project').value='';document.getElementById('b-client').value='';document.getElementById('b-due').value='';
   save();renderAll();
 }
-
 function updBid(id,s){const b=state.bids.find(x=>x.id===id);if(b)b.status=s;save();renderAll();}
 function del(t,id){state[t]=state[t].filter(x=>x.id!==id);save();renderAll();}
 function saveNotes(){state.notes=document.getElementById('week-notes').value;save();document.getElementById('notes-display').textContent=state.notes;}
