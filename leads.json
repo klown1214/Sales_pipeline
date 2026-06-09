@@ -54,7 +54,7 @@
   },
   {
     "id": "w1-005",
-    "company": "Custom Concrete — Princeton",
+    "company": "Custom Concrete \u2014 Princeton",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -67,7 +67,7 @@
   },
   {
     "id": "w1-006",
-    "company": "Concrete Contractor — Terrell",
+    "company": "Concrete Contractor \u2014 Terrell",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -80,7 +80,7 @@
   },
   {
     "id": "w1-007",
-    "company": "GC — Forney / Rockwall County",
+    "company": "GC \u2014 Forney / Rockwall County",
     "contact": "",
     "title": "",
     "type": "General Contractor",
@@ -93,7 +93,7 @@
   },
   {
     "id": "w1-008",
-    "company": "GC — Rockwall (Meredith Dr)",
+    "company": "GC \u2014 Rockwall (Meredith Dr)",
     "contact": "",
     "title": "",
     "type": "General Contractor",
@@ -120,14 +120,14 @@
   {
     "id": "w1-010",
     "company": "WillowCreek Custom Homes",
-    "contact": "",
-    "title": "",
+    "contact": "Michael Cheatham",
+    "title": "Owner",
     "type": "Home Builder",
     "area": "Rockwall / Heath / Fate / Royse City",
     "plant": "Royse City",
-    "phone": "",
-    "email": "",
-    "notes": "25 yrs experience. Serves Rockwall, Heath, Forney, Fate, Royse City. Check website for contact.",
+    "phone": "469-734-6055",
+    "email": "office@willowcreekcustomhomes.com",
+    "notes": "25 yrs exp. Serves Rockwall, Heath, Forney, Fate, Royse City. Owner: Michael Cheatham.",
     "status": "new"
   },
   {
@@ -138,9 +138,9 @@
     "type": "Home Builder",
     "area": "Rockwall",
     "plant": "Royse City",
-    "phone": "",
+    "phone": "214-307-2382",
     "email": "",
-    "notes": "10+ yrs, Rockwall area custom homes. Check petersoncustomhomes.org for contact.",
+    "notes": "10+ yrs, Rockwall area custom homes. Also serves Heath, Royse City, Fate, Forney, Terrell.",
     "status": "new"
   },
   {
@@ -158,7 +158,7 @@
   },
   {
     "id": "w1-013",
-    "company": "Contractor — Fate TX",
+    "company": "Contractor \u2014 Fate TX",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -171,7 +171,7 @@
   },
   {
     "id": "w1-014",
-    "company": "Concrete Contractor — Seagoville (Parkhaven Dr)",
+    "company": "Concrete Contractor \u2014 Seagoville (Parkhaven Dr)",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -184,7 +184,7 @@
   },
   {
     "id": "w1-015",
-    "company": "Concrete Contractor — Seagoville (Belt Line Rd)",
+    "company": "Concrete Contractor \u2014 Seagoville (Belt Line Rd)",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -197,7 +197,7 @@
   },
   {
     "id": "w1-016",
-    "company": "Concrete — Forney (Hwy 80)",
+    "company": "Concrete \u2014 Forney (Hwy 80)",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -210,7 +210,7 @@
   },
   {
     "id": "w1-017",
-    "company": "Concrete — Forney (Clearview Dr)",
+    "company": "Concrete \u2014 Forney (Clearview Dr)",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -275,7 +275,7 @@
   },
   {
     "id": "w1-022",
-    "company": "Concrete — Crandall",
+    "company": "Concrete \u2014 Crandall",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -301,7 +301,7 @@
   },
   {
     "id": "w1-024",
-    "company": "Concrete Contractor — Kemp (Seven Points Dr)",
+    "company": "Concrete Contractor \u2014 Kemp (Seven Points Dr)",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -314,7 +314,7 @@
   },
   {
     "id": "w1-025",
-    "company": "Concrete Contractor — Kaufman (CR 155)",
+    "company": "Concrete Contractor \u2014 Kaufman (CR 155)",
     "contact": "",
     "title": "",
     "type": "Concrete Contractor",
@@ -327,7 +327,7 @@
   },
   {
     "id": "w1-026",
-    "company": "Home Builder — Kemp (Hwy 175)",
+    "company": "Home Builder \u2014 Kemp (Hwy 175)",
     "contact": "",
     "title": "",
     "type": "Home Builder",
@@ -340,7 +340,7 @@
   },
   {
     "id": "w1-027",
-    "company": "Home Builder — Kemp (32 yrs)",
+    "company": "Home Builder \u2014 Kemp (32 yrs)",
     "contact": "",
     "title": "",
     "type": "Home Builder",
@@ -353,7 +353,7 @@
   },
   {
     "id": "w1-028",
-    "company": "Home Builder — Mabank (3rd St)",
+    "company": "Home Builder \u2014 Mabank (3rd St)",
     "contact": "",
     "title": "",
     "type": "Home Builder",
@@ -366,7 +366,7 @@
   },
   {
     "id": "w1-029",
-    "company": "Home Builder — Mabank (Shady Shores)",
+    "company": "Home Builder \u2014 Mabank (Shady Shores)",
     "contact": "",
     "title": "",
     "type": "Home Builder",
@@ -379,7 +379,7 @@
   },
   {
     "id": "w1-030",
-    "company": "Home Builder — Tool TX",
+    "company": "Home Builder \u2014 Tool TX",
     "contact": "",
     "title": "",
     "type": "Home Builder",
@@ -392,7 +392,7 @@
   },
   {
     "id": "w1-031",
-    "company": "GC — Kemp (Arnold Hills, 19 yrs)",
+    "company": "GC \u2014 Kemp (Arnold Hills, 19 yrs)",
     "contact": "",
     "title": "",
     "type": "General Contractor",
@@ -405,7 +405,7 @@
   },
   {
     "id": "w1-032",
-    "company": "GC — Mabank (50 yrs)",
+    "company": "GC \u2014 Mabank (50 yrs)",
     "contact": "",
     "title": "",
     "type": "General Contractor",
@@ -418,7 +418,7 @@
   },
   {
     "id": "w1-033",
-    "company": "GC — Kemp (Leah Ln)",
+    "company": "GC \u2014 Kemp (Leah Ln)",
     "contact": "",
     "title": "",
     "type": "General Contractor",
@@ -431,7 +431,7 @@
   },
   {
     "id": "w1-034",
-    "company": "Commercial Developer — Mabank (Pinnacle Club)",
+    "company": "Commercial Developer \u2014 Mabank (Pinnacle Club)",
     "contact": "",
     "title": "",
     "type": "Commercial Developer",
